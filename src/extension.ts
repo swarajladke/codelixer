@@ -45,3 +45,14 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 export function deactivate() {}
+
+export function activate1(context: vscode.ExtensionContext) {
+  console.log("🔥 Codelixer activated");
+
+  let disposable = vscode.commands.registerCommand('codelixer.correct', () => {
+    console.log("🚀 Codelixer command executed");
+    vscode.window.showInformationMessage('Codelixer is working!');
+  });
+
+  context.subscriptions.push(disposable);
+}

@@ -27,8 +27,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "codelixer.helloWorld",
-        "title": "Hello World"
+        "command": "codelixer.correct",
+        "title": "codelixer:correct code"
       }
     ]
   },
