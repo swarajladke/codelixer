@@ -1,8 +1,9 @@
 // src/extension.ts
-import * as vscode from 'vscode';
-import OpenAI from 'openai';
 import * as dotenv from 'dotenv';
 dotenv.config();
+import * as vscode from 'vscode';
+import OpenAI from 'openai';
+
 
 // ✅ Use correct env variable, don't hardcode the key
 const openai = new OpenAI({
@@ -61,3 +62,5 @@ export function activate(context: vscode.ExtensionContext) {
 export function deactivate() {
   console.log("🛑 CodeLixer deactivated");
 }
+
+console.log("Loaded Key: ", process.env.OPENAI_API_KEY);

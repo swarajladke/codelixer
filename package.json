@@ -2,7 +2,7 @@
   "name": "codelixer",
   "displayName": "CodeLixer",
   "description": "A real-time autocorrect extension for code typos and syntax errors while typing.",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "publisher": "swarajladke",
   "author": {
     "name": "Swaraj Ladke"
@@ -21,9 +21,13 @@
   ],
   "activationEvents": [
     "onStartupFinished",
-    "onCommand:codelixer.correct",
-    "onLanguage:javascript",
-    "onLanguage:python"
+  "onLanguage:javascript",
+  "onLanguage:typescript",
+  "onLanguage:python",
+  "onLanguage:cpp",
+  "onLanguage:java",
+  "onLanguage:csharp",
+  "*"
   ],
   "main": "./dist/extension.js",
   "contributes": {
