@@ -17,10 +17,13 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [
-    " * "
-  ],
-  "main": "./dist/extension.js",
+     "activationEvents": [
+  "onStartupFinished",
+  "onLanguage:javascript",
+  "onLanguage:python"
+],
+  
+"main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
