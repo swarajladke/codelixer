@@ -9,7 +9,6 @@ import OpenAI from 'openai';
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-
 export function activate(context: vscode.ExtensionContext) {
   console.log("🔥 CodeLixer activated");
 
