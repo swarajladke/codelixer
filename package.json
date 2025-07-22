@@ -21,7 +21,7 @@
   ],
 
   "activationEvents": [
-  "onCommand:yourExtension.commandName",
+  "onCommand: codelixer.start",
   "onStartupFinished",
   "onLanguage:javascript",
   "onLanguage:typescript",
