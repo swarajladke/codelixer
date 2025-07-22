@@ -4,22 +4,35 @@ import OpenAI from 'openai';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-const openai = new OpenAI({ apiKey:' process.env.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'});
+// ✅ Use correct env variable, don't hardcode the key
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 export function activate(context: vscode.ExtensionContext) {
-  const disposable = vscode.workspace.onDidChangeTextDocument(async (event) => {
+  console.log("🔥 CodeLixer activated");
+
+  // Register the command manually to allow testing
+  let commandDisposable = vscode.commands.registerCommand('codelixer.correct', () => {
+    vscode.window.showInformationMessage('CodeLixer is working!');
+    console.log("🚀 Codelixer command executed");
+  });
+  context.subscriptions.push(commandDisposable);
+
+  // Listen for changes in the editor
+  const changeDisposable = vscode.workspace.onDidChangeTextDocument(async (event) => {
     const editor = vscode.window.activeTextEditor;
-    if (!editor || event.document !== editor.document) {
+    if (!editor || event.document !== editor.document){ 
       return;
     }
 
     const lastChange = event.contentChanges[event.contentChanges.length - 1];
-    if (!lastChange || lastChange.text.length > 20 || lastChange.text === ' ') {
+    if (!lastChange || lastChange.text.length > 10 || lastChange.text.trim() === '') {
       return;
     }
 
     const fullLine = editor.document.lineAt(lastChange.range.start.line).text;
-    const prompt = `Correct this programming code for typos and syntax errors, return corrected version only:\n\n${fullLine}`;
+    const prompt = `Fix typos and syntax errors in this code. Return only the corrected code:\n\n${fullLine}`;
 
     try {
       const res = await openai.chat.completions.create({
@@ -35,24 +48,16 @@ export function activate(context: vscode.ExtensionContext) {
         const lineRange = editor.document.lineAt(lastChange.range.start.line).range;
         edit.replace(editor.document.uri, lineRange, fixedLine);
         await vscode.workspace.applyEdit(edit);
+        console.log("🔧 Line autocorrected by CodeLixer");
       }
     } catch (error) {
-      console.error('OpenAI correction error:', error);
+      console.error('❌ OpenAI correction error:', error);
     }
   });
 
-  context.subscriptions.push(disposable);
+  context.subscriptions.push(changeDisposable);
 }
 
-export function deactivate() {}
-
-export function activate1(context: vscode.ExtensionContext) {
-  console.log("🔥 Codelixer activated");
-
-  let disposable = vscode.commands.registerCommand('codelixer.correct', () => {
-    console.log("🚀 Codelixer command executed");
-    vscode.window.showInformationMessage('Codelixer is working!');
-  });
-
-  context.subscriptions.push(disposable);
+export function deactivate() {
+  console.log("🛑 CodeLixer deactivated");
 }

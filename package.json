@@ -15,20 +15,22 @@
     "vscode": "^1.102.0"
   },
   "categories": [
+    "Programming Languages",
+    "Linters",
     "Other"
   ],
-     "activationEvents": [
-  "onStartupFinished",
-  "onLanguage:javascript",
-  "onLanguage:python"
-],
-  
-"main": "./dist/extension.js",
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:codelixer.correct",
+    "onLanguage:javascript",
+    "onLanguage:python"
+  ],
+  "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "codelixer.correct",
-        "title": "codelixer:correct code"
+        "title": "CodeLixer: Correct Code"
       }
     ]
   },
