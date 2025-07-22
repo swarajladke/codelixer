@@ -19,22 +19,25 @@
     "Linters",
     "Other"
   ],
+
   "activationEvents": [
-    "onStartupFinished",
-    "onLanguage:javascript",
-    "onLanguage:typescript",
-    "onLanguage:python",
-    "onLanguage:cpp",
-    "onLanguage:java",
-    "onLanguage:csharp",
-    "*"
+  "onCommand:yourExtension.commandName",
+  "onStartupFinished",
+  "onLanguage:javascript",
+  "onLanguage:typescript",
+  "onLanguage:python",
+  "onLanguage:cpp",
+  "onLanguage:java",
+  "onLanguage:csharp",
+  "*"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "codelixer.correct",
-        "title": "CodeLixer: Correct Code"
+        "command": "codelixer.start",
+        "title": "Start CodeLixer",
+        "category": "CodeLixer"
       }
     ]
   },
