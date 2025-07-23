@@ -9,12 +9,19 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [ 
+ "onStartupFinished",
+  "onLanguage:javascript",
+  "onLanguage:typescript",
+  "onLanguage:python",
+  "onCommand:codelixer.start"
+
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "codelixer.helloWorld",
+        "command": "codelixer.start",
         "title": "Hello World"
       }
     ]
