@@ -1,6 +1,9 @@
 import * as vscode from 'vscode';
+import fetch from 'node-fetch';
 
 export function activate(context: vscode.ExtensionContext) {
+  console.log("✅ CodeLixer is activating...");
+
   const disposable = vscode.workspace.onDidChangeTextDocument(async (event) => {
     const editor = vscode.window.activeTextEditor;
     if (!editor || event.document !== editor.document) {
@@ -32,11 +35,14 @@ export function activate(context: vscode.ExtensionContext) {
         await vscode.workspace.applyEdit(edit);
       }
     } catch (error) {
-      console.error('Error calling backend:', error);
+      console.error("❌ Error calling backend:", error);
     }
   });
 
   context.subscriptions.push(disposable);
+  console.log("✅ CodeLixer activated successfully.");
 }
 
-export function deactivate() {}
+export function deactivate() {
+  console.log("🛑 CodeLixer deactivated.");
+}

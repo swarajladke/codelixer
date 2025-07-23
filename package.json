@@ -10,13 +10,13 @@
     "Other"
   ],
   "activationEvents": [ 
+ "onDidChangeTextDocument",
  "onStartupFinished",
   "onLanguage:javascript",
   "onLanguage:typescript",
-  "onLanguage:python",
-  "onCommand:codelixer.start"
-
-  ],
+   "onLanguage:python"
+  
+    ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
