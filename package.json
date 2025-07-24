@@ -2,7 +2,7 @@
   "name": "codelixer",
   "displayName": "CodeLixer",
   "description": "A real-time autocorrect extension for code typos and syntax errors while typing.",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "icon": "icon.png",
   "publisher": "swarajladke",
   "license": "MIT",
