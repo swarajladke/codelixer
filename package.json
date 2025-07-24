@@ -2,10 +2,17 @@
   "name": "codelixer",
   "displayName": "CodeLixer",
   "description": "A real-time autocorrect extension for code typos and syntax errors while typing.",
-  "version": "0.0.2",
-  "engines": {
-    "vscode": "^1.102.0"
-  },
+  "version": "0.0.3",
+  "publisher": "swarajladke20",
+  "license": "MIT",
+"engines": {
+  "vscode": "^1.102.0"
+},
+"repository": {
+  "type": "git",
+  "url": "https://github.com/swarajladke20/codelixer.git"
+},
+
   "categories": [
     "Other"
   ],
@@ -14,15 +21,17 @@
  "onStartupFinished",
   "onLanguage:javascript",
   "onLanguage:typescript",
-   "onLanguage:python"
+   "onLanguage:python",
+   "*" 
   
     ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "codelixer.start",
-        "title": "Hello World"
+        "command": "extension.fixCode",
+        "category": "CodeLixer",
+        "title": "Fix Code"
       }
     ]
   },

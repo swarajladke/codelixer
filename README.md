@@ -1,71 +1,78 @@
-# codelixer README
+# CodeLixer
 
-This is the README for your extension "codelixer". After writing up a brief description, we recommend including the following sections.
+**CodeLixer** is a real-time AI-powered code autocorrect extension for Visual Studio Code. It detects typos and syntax errors as you type and automatically fixes them using advanced AI models.
 
-## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
 
 ---
 
-## Following extension guidelines
+## 🚀 Features
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+- ✅ Detects typos and syntax errors in real time
+- ⚡ Automatically replaces the incorrect line with a corrected version
+- 🤖 Powered by OpenRouter (OpenAI/GPT)
+- 🌐 Backend-proxy architecture for secure key handling
+- 💻 Supports multiple programming languages
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+---
 
-## Working with Markdown
+## 🔧 Requirements
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
+- A running backend proxy server with OpenRouter or OpenAI API integration
+- Internet connection
+- VS Code 1.85.0 or higher
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+---
 
-## For more information
+## ⚙️ Extension Settings
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+Currently, CodeLixer does not require user configuration.
 
-**Enjoy!**
+Future versions may include:
+
+- `codelixer.enable`: Enable/disable CodeLixer
+- `codelixer.languageSupport`: Define languages for correction
+
+---
+
+## 🐛 Known Issues
+
+- Only corrects one line at a time
+- Not optimized for multi-line errors or large files
+- Backend must be running for extension to work
+
+---
+
+## 📝 Release Notes
+
+### 0.1.0
+
+- First public release of CodeLixer
+- Real-time line-level autocorrection
+- Integrated with secure backend using OpenAI API
+
+---
+
+## 🛠️ Developer Info
+
+This extension is built using:
+
+- Frontend: TypeScript, VS Code Extension API
+- Backend: Node.js, Express, OpenRouter/OpenAI API
+
+---
+
+## 📄 Useful Links
+
+- [VS Code Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+- [Markdown Syntax Guide](https://www.markdownguide.org/basic-syntax/)
+- [Visual Studio Code API Docs](https://code.visualstudio.com/api)
+
+---
+
+**Enjoy using CodeLixer!**  
+_Enhance your coding flow with instant AI corrections._
+
+---
+
+📌 **Made with ❤️ by [Swaraj Ladke](https://github.com/swarajladke20)**
