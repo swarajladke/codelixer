@@ -5,7 +5,7 @@ import * as vscode from 'vscode';
 import OpenAI from 'openai';
 
 
-// ✅ Use correct env variable, don't hardcode the key
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
