@@ -6,46 +6,55 @@ import fetch from 'node-fetch';
 export function activate(context: vscode.ExtensionContext) {
   console.log("✅ CodeLixer is activating...");
 
-  const commandDisposable = vscode.commands.registerCommand('extension.fixCode', () => {
-  vscode.window.showInformationMessage('CodeLixer: Fix Code command triggered!');
-});
+  // Manual command (optional, but nice)
+  const commandDisposable = vscode.commands.registerCommand('extension.fixCode', async () => {
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) return;
 
-context.subscriptions.push(commandDisposable);
-  console.log("✅ CodeLixer command registered.");
+    const line = editor.selection.active.line;
+    const fullLine = editor.document.lineAt(line).text;
+    const fixed = await fixCode(fullLine);
+
+    if (fixed && fixed !== fullLine) {
+      const edit = new vscode.WorkspaceEdit();
+      const range = editor.document.lineAt(line).range;
+      edit.replace(editor.document.uri, range, fixed);
+      await vscode.workspace.applyEdit(edit);
+    }
+  });
+
+  context.subscriptions.push(commandDisposable);
+
+  // Debounced automatic fix
+  let timeout: NodeJS.Timeout | null = null;
+  let lastFixedLine = "";
 
   const disposable = vscode.workspace.onDidChangeTextDocument(async (event) => {
     const editor = vscode.window.activeTextEditor;
-    if (!editor || event.document !== editor.document) {
-      return;
-    }
+    if (!editor || event.document !== editor.document) return;
 
     const lastChange = event.contentChanges[event.contentChanges.length - 1];
-    if (!lastChange || lastChange.text.length > 20 || lastChange.text === ' ') {
-      return;
-    }
+    if (!lastChange || lastChange.text.trim() === "") return;
 
-    const fullLine = editor.document.lineAt(lastChange.range.start.line).text;
-    const prompt = `Correct this programming code for typos and syntax errors. Return only the corrected line:\n\n${fullLine}`;
+    const lineNum = lastChange.range.start.line;
+    const fullLine = editor.document.lineAt(lineNum).text;
 
-    try {
-      const response = await fetch("https://codelixer-backend.onrender.com/fix", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt }),
-      });
+    // Cancel previous timeout
+    if (timeout) clearTimeout(timeout);
 
-      const data = await response.json();
-      const fixedLine = data.response?.trim(); // ✅ using .response here to match backend
+    timeout = setTimeout(async () => {
+      if (!shouldFix(fullLine, lastFixedLine)) return;
 
-      if (fixedLine && fixedLine !== fullLine) {
+      const fixed = await fixCode(fullLine);
+
+      if (fixed && fixed !== fullLine) {
         const edit = new vscode.WorkspaceEdit();
-        const lineRange = editor.document.lineAt(lastChange.range.start.line).range;
-        edit.replace(editor.document.uri, lineRange, fixedLine);
+        const range = editor.document.lineAt(lineNum).range;
+        edit.replace(editor.document.uri, range, fixed);
         await vscode.workspace.applyEdit(edit);
+        lastFixedLine = fixed; // prevent re-fixing same line
       }
-    } catch (error) {
-      console.error("❌ Error calling backend:", error);
-    }
+    }, 600); // Wait 600ms after last keystroke
   });
 
   context.subscriptions.push(disposable);
@@ -54,4 +63,34 @@ context.subscriptions.push(commandDisposable);
 
 export function deactivate() {
   console.log("🛑 CodeLixer deactivated.");
+}
+
+async function fixCode(fullLine: string): Promise<string> {
+  const prompt = `Correct this line of Python code. Only return the corrected line:\n\n${fullLine}`;
+  try {
+    const response = await fetch("https://codelixer-backend.onrender.com/fix", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt }),
+    });
+
+    const data = await response.json();
+    return data.response?.trim() || "";
+  } catch (err) {
+    console.error("❌ Fixer API Error:", err);
+    return "";
+  }
+}
+
+function shouldFix(newLine: string, lastLine: string): boolean {
+  // Ignore numbers, variable names, or known keywords
+  if (
+    newLine.trim() === "" ||
+    newLine === lastLine ||
+    newLine.length < 3 ||
+    /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(newLine.trim())
+  ) {
+    return false;
+  }
+  return true;
 }
