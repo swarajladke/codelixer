@@ -1,0 +1,12 @@
+[33mdb4ec3b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m 🔥 Improved CodeLixer: debounce, line-level fix, prevented overcorrection
+[33ma188a3b[m Added icon for extension and updated package.json
+[33ma4f5c47[m Added extension icon
+[33m8ab417f[m Added extension icon
+[33m773d219[m Update: Fixed publisher ID and published new extension version
+[33mfd25a96[m[33m ([m[1;33mtag: [m[1;33mv0.0.5[m[33m)[m 0.0.5
+[33m566d461[m[33m ([m[1;33mtag: [m[1;33mv0.0.4[m[33m)[m 0.0.4
+[33m7a3efa8[m[33m ([m[1;33mtag: [m[1;33mv0.0.3[m[33m)[m v0.0.4: Added manual command trigger and fixed activation
+[33mbd70486[m Fix: added activationEvents for automatic extension activation
+[33m9bf323d[m Fix extension.ts and auto-activation issues
+[33mc0695b2[m Fix: added activation events for automatic extension startup
+[33mde7cb99[m Refactored to use backend proxy for OpenAI API requests
